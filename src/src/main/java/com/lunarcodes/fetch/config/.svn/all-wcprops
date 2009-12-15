@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/fetch2me/!svn/ver/2/fej2me/src/main/java/com/lunarcodes/fetch/config
+END
+ConfigType.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/fetch2me/!svn/ver/2/fej2me/src/main/java/com/lunarcodes/fetch/config/ConfigType.java
+END
+ConfigBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/fetch2me/!svn/ver/2/fej2me/src/main/java/com/lunarcodes/fetch/config/ConfigBuilder.java
+END
+SMTPConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/fetch2me/!svn/ver/2/fej2me/src/main/java/com/lunarcodes/fetch/config/SMTPConfig.java
+END
+ImapConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/fetch2me/!svn/ver/2/fej2me/src/main/java/com/lunarcodes/fetch/config/ImapConfig.java
+END
+Config.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/fetch2me/!svn/ver/2/fej2me/src/main/java/com/lunarcodes/fetch/config/Config.java
+END

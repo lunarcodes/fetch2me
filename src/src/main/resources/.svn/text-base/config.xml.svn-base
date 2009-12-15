@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<response>
+		<smtpconfig>
+			<property key="mailid" value="fetch2metwin@gmail.com"/>
+			<property key="password" value="TheForce2"/>
+			<property key="hostname" value="smtp.gmail.com"/>
+			<property key="port" value="587"/>
+		</smtpconfig>
+	</response>
+	
+	<request>
+		<imapconfig>
+			<property key="mailid" value="fetch2metwin@gmail.com"/>
+			<property key="password" value="TheForce2"/>
+			<property key="hostname" value="imap.gmail.com"/>
+			<property key="port" value="993"/>
+			
+		</imapconfig>
+	</request>
+</config>

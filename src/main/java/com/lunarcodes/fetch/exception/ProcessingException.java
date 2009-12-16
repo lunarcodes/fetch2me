@@ -4,7 +4,7 @@ package com.lunarcodes.fetch.exception;
  * @author arun
  *
  */
-public class ProcessingException extends RuntimeException {
+public class ProcessingException extends Exception {
 	
 	public ProcessingException() {
 		super();

@@ -59,11 +59,11 @@ public class ImapUtils {
 			Properties props=System.getProperties();
 			props.setProperty("mail.store.protocol", "imaps");
 			
-			Session session=(Session)cachedItems.get(Constants.SESSION);
+			Session session=(Session)cachedItems.get(Constants.IMAP_SESSION);
 			
 			if (session==null){
 				session=Session.getDefaultInstance(props);
-				cachedItems.put(Constants.SESSION, session);
+				cachedItems.put(Constants.IMAP_SESSION, session);
 			}
 			
 			store=session.getStore();

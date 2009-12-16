@@ -2,20 +2,24 @@ package com.lunarcodes.fetch.response;
 
 import java.io.Serializable;
 
+import javax.activation.DataSource;
+
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 import com.lunarcodes.fetch.request.RequestType;
 
 public class ResponseVo implements Serializable {
 	
-	private RequestType requestType; 
-
+	private ResponseType responseType;
 	//FIXME kill me ! Kill me !! if i am acting foolish here. This is all the imagination i have right now
 	private String stringResponseContent=null;
-	private String urlResponseContent=null;
+	private String url=null;
 	private String toAddress;
 	private String toNumber;
 	private String toName;
+	private String subject;
+	
+	private DataSource responseContent;
 	
 	public String getStringResponseContent() {
 		return stringResponseContent;
@@ -23,23 +27,11 @@ public class ResponseVo implements Serializable {
 	public void setStringResponseContent(String stringResponseContent) {
 		this.stringResponseContent = stringResponseContent;
 	}
-	public String getUrlResponseContent() {
-		return urlResponseContent;
-	}
-	public void setUrlResponseContent(String urlResponseContent) {
-		this.urlResponseContent = urlResponseContent;
-	}
-	
 	@Override
 	public String toString() {
 		return (ReflectionToStringBuilder.toString(this));
 	}
-	public RequestType getRequestType() {
-		return requestType;
-	}
-	public void setRequestType(RequestType requestType) {
-		this.requestType = requestType;
-	}
+	
 	public String getToAddress() {
 		return toAddress;
 	}
@@ -57,5 +49,29 @@ public class ResponseVo implements Serializable {
 	}
 	public void setToName(String toName) {
 		this.toName = toName;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public ResponseType getResponseType() {
+		return responseType;
+	}
+	public void setResponseType(ResponseType responseType) {
+		this.responseType = responseType;
+	}
+	public DataSource getResponseContent() {
+		return responseContent;
+	}
+	public void setResponseContent(DataSource responseContent) {
+		this.responseContent = responseContent;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 }

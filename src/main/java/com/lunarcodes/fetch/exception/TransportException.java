@@ -4,7 +4,7 @@ package com.lunarcodes.fetch.exception;
  * @author arun
  *
  */
-public class TransportException extends RuntimeException {
+public class TransportException extends Exception {
 	
 	public TransportException() {
 		super();

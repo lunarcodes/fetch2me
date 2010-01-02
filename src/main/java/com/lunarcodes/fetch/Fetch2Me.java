@@ -12,6 +12,11 @@ import com.lunarcodes.fetch.processor.ProcessorFactory;
 import com.lunarcodes.fetch.request.RequestVo;
 import com.lunarcodes.fetch.util.ImapUtils;
 
+/**
+ * @author arun
+ * Entry point of the program. 
+ *
+ */
 public class Fetch2Me {
 	
 	protected final static Logger LOG = Logger.getLogger(Fetch2Me.class);
@@ -20,6 +25,9 @@ public class Fetch2Me {
 		fetch2Me.startProcessing();
 	}
 	
+	/**
+	 * This method accepts and processes only mail requests as of now. Need to change signature or spawn a different thread for sms processing.
+	 */
 	private void startProcessing(){
 		List<RequestVo> requestList=ImapUtils.getInstance().fetchRequestMessages(ConfigBuilder.getInstance().getImapConfig());
 		Processor processor=null;

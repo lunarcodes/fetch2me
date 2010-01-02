@@ -7,13 +7,11 @@ import javax.activation.DataSource;
 import javax.activation.URLDataSource;
 
 import com.lunarcodes.fetch.exception.ProcessingException;
-import com.lunarcodes.fetch.exception.TransportException;
 import com.lunarcodes.fetch.request.RequestVo;
 import com.lunarcodes.fetch.response.ResponseType;
 import com.lunarcodes.fetch.response.ResponseVo;
-import com.lunarcodes.fetch.transport.MailTransporter;
-import com.lunarcodes.fetch.transport.Transporter;
 import com.lunarcodes.fetch.util.Constants;
+import com.lunarcodes.fetch.util.HttpUtils;
 
 public class URLProcessor extends AbstractProcessor {
 
@@ -21,31 +19,14 @@ public class URLProcessor extends AbstractProcessor {
 		super(requestVo);
 	}
 
-	public void process() throws TransportException {
-
-		ResponseVo responseVo = null;
-		Transporter transporter = null;
-		switch (getRequestVo().getTransportType()) {
-		case MAIL:
-			transporter = MailTransporter.getInstance();
-			responseVo = getResponseVo();
-			break;
-
-		case SMS: // FIXME
-			break;
-
-		case JABBER: // FIXME
-			break;
-
-		}
-		transporter.transport(responseVo);
-	}
-
+	/* (non-Javadoc)
+	 * @see com.lunarcodes.fetch.processor.AbstractProcessor#getResponseVo()
+	 */
 	public ResponseVo getResponseVo() {
 		ResponseVo responseVo = new ResponseVo();
 
 		try {
-			if (checkIfURLIsValid(getRequestVo().getRequestContent())) {
+			if (HttpUtils.isURLValid(getRequestVo().getRequestContent())) {
 				responseVo.setResponseType(ResponseType.URL);
 				responseVo.setUrl(getRequestVo().getRequestContent());
 				responseVo.setResponseContent(getResponseContent(responseVo));
@@ -54,8 +35,8 @@ public class URLProcessor extends AbstractProcessor {
 		} catch (ProcessingException e) {
 			LOG.error(e.getMessage(), e);
 			responseVo.setResponseType(ResponseType.ERROR);
-			responseVo.setStringResponseContent(Constants.INVALID_URL);
-			responseVo.setSubject(Constants.INVALID_URL_SUBJECT);
+			responseVo.setStringResponseContent(Constants.UNABLE_TO_PROCESS);
+			responseVo.setSubject(Constants.ERROR_DURING_PROCESSING);
 		}
 
 		responseVo.setToAddress(getRequestVo().getFromAddress());
@@ -65,11 +46,11 @@ public class URLProcessor extends AbstractProcessor {
 
 	}
 
-	private boolean checkIfURLIsValid(String urlString) {
-		// FIXME Use HTTPClient to verify URL validity
-		return true;
-	}
-
+	/**
+	 * @param responseVo
+	 * @return
+	 * @throws ProcessingException
+	 */
 	private DataSource getResponseContent(ResponseVo responseVo) throws ProcessingException {
 		DataSource dataSource = null;
 		try {

@@ -1,6 +1,5 @@
 package com.lunarcodes.fetch.processor;
 
-import com.lunarcodes.fetch.config.Config;
 import com.lunarcodes.fetch.request.RequestVo;
 import com.lunarcodes.fetch.response.ResponseVo;
 import com.lunarcodes.fetch.util.CommonUtils;

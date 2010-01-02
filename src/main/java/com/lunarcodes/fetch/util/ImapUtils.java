@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
-import javax.mail.Address;
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;

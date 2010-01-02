@@ -6,8 +6,6 @@ import javax.activation.DataSource;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
-import com.lunarcodes.fetch.request.RequestType;
-
 public class ResponseVo implements Serializable {
 	
 	private ResponseType responseType;

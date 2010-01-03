@@ -18,13 +18,13 @@ public interface Constants {
 	public static final String SUCCESS="Here you go... your request has been successfully processed !!!";
 
 	//http://code.google.com/apis/ajaxsearch/documentation/reference.html#_restUrlBase
-	public static final String WEB_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/web";
-	public static final String NEWS_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/news";
-	public static final String LOCAL_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/local";
-	public static final String BOOK_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/books";
-	public static final String IMAGE_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/images";
-	public static final String VIDEO_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/videos";
-	public static final String BLOG_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/blogs";
+	public static final String GOOGLE_WEB_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/web";
+	public static final String GOOGLE_NEWS_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/news";
+	public static final String GOOGLE_LOCAL_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/local";
+	public static final String GOOGLE_BOOK_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/books";
+	public static final String GOOGLE_IMAGE_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/images";
+	public static final String GOOGLE_VIDEO_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/videos";
+	public static final String GOOGLE_BLOG_SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/blogs";
 	
 	public static final String USER_AGENT="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008072820 Lunarcodes";
 	public static final int CONNECTION_TIMEOUT_SEC= 10000 ;//(10* 1000) 	

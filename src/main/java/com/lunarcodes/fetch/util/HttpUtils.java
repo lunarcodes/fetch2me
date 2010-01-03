@@ -13,6 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import com.lunarcodes.fetch.exception.CommunicationException;
 
@@ -30,13 +31,27 @@ public class HttpUtils {
 	 * @param params
 	 * @return
 	 */
-	public static HttpEntity getResponseForGetRequest(String url, Map<String, String> params) {
+	public static String getResponseStringForGetRequest(String url, Map<String, String> params) throws CommunicationException, IOException {
 
 		HttpUriRequest request = constructGetRequest(url, params);
-		return (getResponseEntity(request));
+		HttpEntity entity=getResponseEntity(request);
+		return EntityUtils.toString(entity);
 
 	}
 
+	/**
+	 * Overloaded method without params
+	 * @param url
+	 * @return
+	 * @throws CommunicationException
+	 * @throws IOException
+	 */
+	public static String getResponseStringForGetRequest(String url) throws CommunicationException, IOException {
+
+		return getResponseStringForGetRequest(url, null);
+
+	}
+	
 	/**
 	 * Constructs request object from a URL. 
 	 * @param url
@@ -44,10 +59,9 @@ public class HttpUtils {
 	 * @return
 	 */
 	private static HttpUriRequest constructGetRequest(String url, Map<String, String> params) {
-		HttpGet httpGet = null;
 		HttpUriRequest request = null;
 
-		if (params.size() > 0) {
+		if (params!=null && params.size() > 0) {
 			String queryString = buildQueryString(params);
 			url = url + queryString;
 		}
@@ -56,23 +70,30 @@ public class HttpUtils {
 		request = new HttpGet(url);
 		return request;
 	}
-
+	
 	/**
-	 * Param map expanded to a URL
+	 * Param map expanded to a URL QueryString
 	 * @param params
 	 * @return
 	 */
 	private static String buildQueryString(Map<String, String> params) {
 		StringBuilder queryString = new StringBuilder();
 		queryString.append("?");
-		Set<Entry<String, String>> entrySet = params.entrySet();
-		for (Entry<String, String> paramPair : entrySet) {
-			queryString.append(paramPair.getKey());
-			queryString.append("=");
-			queryString.append(CommonUtils.encode(paramPair.getValue()));
-			queryString.append("&");
+		if (params!=null){
+			Set<Entry<String, String>> entrySet = params.entrySet();
+			for (Entry<String, String> paramPair : entrySet) {
+				queryString.append(paramPair.getKey());
+				queryString.append("=");
+				queryString.append(CommonUtils.encode(paramPair.getValue()));
+				queryString.append("&");
+			}
 		}
 		
+		//delete the last & at the end
+		int lastCharPos=queryString.length()-1;
+		if ('&'==queryString.charAt(lastCharPos)){
+			queryString.deleteCharAt(lastCharPos);
+		}
 		return queryString.toString();
 	}
 
@@ -84,17 +105,17 @@ public class HttpUtils {
 	 */
 	private static HttpEntity getResponseEntity(HttpUriRequest request) throws CommunicationException {
 
-		HttpResponse response = null;
-		HttpEntity entity = null;
+		HttpEntity responseEntity=null;
 
 		try {
-			response = getDefaultHTTPClient().execute(request);
+			HttpResponse response = getDefaultHTTPClient().execute(request);
 
 			int statusCode = response.getStatusLine().getStatusCode();
 
 			if (statusCode != HttpStatus.SC_OK) {
 				throw new CommunicationException(Constants.ERROR_DURING_PROCESSING + "::: HTTP status code :" + statusCode);
 			}
+			responseEntity = response.getEntity();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			throw new CommunicationException(Constants.ERROR_DURING_PROCESSING + e.getMessage());
@@ -103,9 +124,7 @@ public class HttpUtils {
 			throw new CommunicationException(Constants.ERROR_DURING_PROCESSING + e.getMessage());
 		}
 
-		entity = response.getEntity();
-
-		return entity;
+		return responseEntity;
 	}
 
 	public static boolean isURLValid(String url) {

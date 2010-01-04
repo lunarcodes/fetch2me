@@ -6,25 +6,24 @@ import javax.activation.DataSource;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
+import com.lunarcodes.fetch.util.Constants;
+
 public class ResponseVo implements Serializable {
 	
 	private ResponseType responseType;
 	//FIXME kill me ! Kill me !! if i am acting foolish here. This is all the imagination i have right now
-	private String stringResponseContent=null;
+	private String message=Constants.SUCCESS;
 	private String url=null;
 	private String toAddress;
 	private String toNumber;
 	private String toName;
 	private String subject;
+	//Flag which tells us whether there is a mail attachment or not so that we can avoid creating Multipart portion for the mail message
+	private boolean multipart=false;
 	
 	private DataSource responseContent;
 	
-	public String getStringResponseContent() {
-		return stringResponseContent;
-	}
-	public void setStringResponseContent(String stringResponseContent) {
-		this.stringResponseContent = stringResponseContent;
-	}
+	
 	@Override
 	public String toString() {
 		return (ReflectionToStringBuilder.toString(this));
@@ -71,5 +70,21 @@ public class ResponseVo implements Serializable {
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public boolean isMultipart() {
+		return multipart;
+	}
+
+	public void setMultipart(boolean multipart) {
+		this.multipart = multipart;
 	}
 }

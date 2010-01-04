@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.lunarcodes.fetch.utils.test.GoogleUtilsTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.721 sec <<< FAILURE!
+testSearchWeb(com.lunarcodes.fetch.utils.test.GoogleUtilsTest)  Time elapsed: 0.693 sec  <<< ERROR!
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.RangeCheck(ArrayList.java:547)
+	at java.util.ArrayList.get(ArrayList.java:322)
+	at com.lunarcodes.fetch.utils.test.GoogleUtilsTest.testSearchWeb(GoogleUtilsTest.java:17)
+

@@ -2,12 +2,15 @@ package com.lunarcodes.fetch.util;
 
 import java.net.URLEncoder;
 
+import org.apache.commons.lang.StringUtils;
+
 public class CommonUtils {
 
-	public static String stripPrefix(String requestContent) {
+	public static String stripPrefix(String requestContent) throws ArrayIndexOutOfBoundsException{
 		String strippedContent = null;
-		strippedContent = requestContent.split(":", 1)[1];
-		return strippedContent;
+		//System.out.println(StringUtils.substring(requestContent, StringUtils.indexOf(requestContent, Constants.COLON)+1));
+		strippedContent = StringUtils.substring(requestContent, StringUtils.indexOf(requestContent, Constants.COLON)+1);
+		return strippedContent.trim();
 	}
 
 	public static String encode(String rawString) {

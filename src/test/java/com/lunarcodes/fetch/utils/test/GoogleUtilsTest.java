@@ -18,7 +18,6 @@ public class GoogleUtilsTest extends TestCase {
 			assertNotNull(result.getUrl());
 			assertNotNull(result.getContent());
 			assertNotNull(result.getTitle());
-			assertNotNull(result.getTitleNoFormattting());
 			System.out.println(result);
 			
 			

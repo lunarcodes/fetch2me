@@ -1,17 +1,17 @@
 package com.lunarcodes.fetch.processor;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.IOException;
+import java.util.List;
 
-import javax.activation.DataSource;
-import javax.activation.URLDataSource;
-
+import com.lunarcodes.fetch.exception.CommunicationException;
 import com.lunarcodes.fetch.exception.ProcessingException;
 import com.lunarcodes.fetch.request.RequestVo;
+import com.lunarcodes.fetch.response.GoogleResult;
 import com.lunarcodes.fetch.response.ResponseType;
 import com.lunarcodes.fetch.response.ResponseVo;
 import com.lunarcodes.fetch.util.CommonUtils;
 import com.lunarcodes.fetch.util.Constants;
+import com.lunarcodes.fetch.util.GoogleUtils;
 
 public class SearchProcessor extends AbstractProcessor {
 
@@ -24,12 +24,13 @@ public class SearchProcessor extends AbstractProcessor {
 
 		try {
 			responseVo.setResponseType(ResponseType.SEARCH);
-			responseVo.setResponseContent(getResponseContent(responseVo));
+			//No Attachment for this mail. So set the Message content alone
+			responseVo.setMessage(getMessage(getRequestVo()));
 			responseVo.setSubject(Constants.SEARCH_RESULTS_FOR + CommonUtils.stripPrefix(getRequestVo().getRequestContent()));
 		} catch (ProcessingException e) {
 			LOG.error(e.getMessage(), e);
 			responseVo.setResponseType(ResponseType.ERROR);
-			responseVo.setStringResponseContent(Constants.UNABLE_TO_PROCESS);
+			responseVo.setMessage(Constants.UNABLE_TO_PROCESS);
 			responseVo.setSubject(Constants.ERROR_DURING_PROCESSING);
 		}
 
@@ -45,17 +46,40 @@ public class SearchProcessor extends AbstractProcessor {
 	 * @return
 	 * @throws ProcessingException
 	 */
-	private DataSource getResponseContent(ResponseVo responseVo) throws ProcessingException {
-		DataSource dataSource = null;
+	private String getMessage(RequestVo request) throws ProcessingException {
+		String searchString=CommonUtils.stripPrefix(request.getRequestSubject());
+		StringBuilder messageContent=new StringBuilder();
 		try {
-			dataSource = new URLDataSource(new URL(responseVo.getUrl()));
-		} catch (MalformedURLException e) {
-			LOG.error(e.getMessage(), e);
-			throw new ProcessingException(e.getMessage(), e);
-			// e.printStackTrace();
+			List<GoogleResult> results=GoogleUtils.searchWeb(searchString);
+			
+			for (GoogleResult result:results){
+				messageContent.append(Constants.TITLE)
+					.append(result.getTitle())
+					.append(Constants.BREAK)
+					
+					.append(Constants.URL)
+					.append(result.getUrl())
+					.append(Constants.BREAK)
+					
+					.append(Constants.CACHED_URL)
+					.append(result.getCacheUrl())
+					.append(Constants.BREAK)
+					
+					.append(Constants.CONTENT)
+					.append(result.getContent())
+					.append(Constants.BREAK).append(Constants.BREAK);
+			}
+			                     
+		} catch (CommunicationException e) {
+			//e.printStackTrace();
+			LOG.error(e.getMessage(),e);
+			throw new ProcessingException(e.getMessage());
+		} catch (IOException e) {
+			//e.printStackTrace();
+			LOG.error(e.getMessage(),e);
+			throw new ProcessingException(e.getMessage());
 		}
-		return dataSource;
-
+		return messageContent.toString();
 	}
 
 }

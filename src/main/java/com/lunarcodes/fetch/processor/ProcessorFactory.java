@@ -1,5 +1,6 @@
 package com.lunarcodes.fetch.processor;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.lunarcodes.fetch.request.RequestType;
@@ -47,11 +48,11 @@ protected final static Logger LOG = Logger.getLogger(ProcessorFactory.class);
 	
 	public RequestType resolveRequestType(RequestVo requestVo){
 		RequestType requestType=null;
-		String content=requestVo.getRequestContent();
-		if (content.toLowerCase().startsWith("search")){
+		String content=StringUtils.deleteWhitespace(requestVo.getRequestContent());
+		if (content.toLowerCase().startsWith("search:")){
 			requestType=RequestType.SEARCH;
 		}
-		else if (content.toLowerCase().startsWith("wiki")){
+		else if (content.toLowerCase().startsWith("wiki:")){
 			requestType=RequestType.WIKI;
 		}
 		else{

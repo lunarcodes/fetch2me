@@ -28,4 +28,12 @@ public interface Constants {
 	
 	public static final String USER_AGENT="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008072820 Lunarcodes";
 	public static final int CONNECTION_TIMEOUT_SEC= 10000 ;//(10* 1000) 	
+	
+	public static final String TITLE="Title :";
+	public static final String URL="Url :";
+	public static final String CONTENT="Content :";
+	public static final String CACHED_URL="Cached Url :";
+	public static final String BREAK="<br>";
+	
+	public static final String COLON=":";
 }

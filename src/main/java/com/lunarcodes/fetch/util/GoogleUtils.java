@@ -38,6 +38,6 @@ public class GoogleUtils {
 		GoogleJsonVo googleJsonVo=gson.fromJson(json, GoogleJsonVo.class);
 		System.out.println("Google Json Vo"+googleJsonVo);
 		System.out.println("Google ResponseStatus"+googleJsonVo.getResponseStatus());
-		return(googleJsonVo.getResponseData().getGoogleResults());
+		return(googleJsonVo.getResponseData().getResults());
 	}
 }

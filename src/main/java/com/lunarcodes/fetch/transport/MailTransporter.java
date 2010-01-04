@@ -107,22 +107,31 @@ public class MailTransporter implements Transporter {
 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(responseVo.getToAddress()));
 		message.setSubject(responseVo.getSubject());
 
-		Multipart multipart = constructMultiPart(responseVo);
-
-		message.setContent(multipart);
+		
+			Multipart multipart = constructMultiPart(responseVo);
+			message.setContent(multipart);
+		
 
 		return message;
 	}
 
 	private Multipart constructMultiPart(ResponseVo responseVo) throws MessagingException {
+		
 		Multipart multipart = new MimeMultipart();
 
-		MimeBodyPart bodyPart = new MimeBodyPart();
-		bodyPart.setText(Constants.SUCCESS);
-		multipart.addBodyPart(bodyPart);
+		MimeBodyPart bodyPart = null;
+		
 		bodyPart = new MimeBodyPart();
-		bodyPart.setDataHandler(new DataHandler(responseVo.getResponseContent()));
+		bodyPart.setText(responseVo.getMessage());
 		multipart.addBodyPart(bodyPart);
+		
+		if (responseVo.isMultipart()){
+			bodyPart = new MimeBodyPart();
+			bodyPart.setDataHandler(new DataHandler(responseVo.getResponseContent()));
+			multipart.addBodyPart(bodyPart);
+		}
+		
+		
 
 		return multipart;
 	}
@@ -131,8 +140,6 @@ public class MailTransporter implements Transporter {
 		
 		try {
 			Session session=(Session)cachedItems.get(Constants.SMTP_SESSION);
-			/*Transport transport=session.getTransport("smtp");
-			transport.connect(config.getHostname(),config.getMailid(), config.getPassword());*/
 			Transport.send(message);
 		} catch (NoSuchProviderException e) {
 			LOG.error(e.getMessage(), e);

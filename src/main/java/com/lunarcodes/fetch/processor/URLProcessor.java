@@ -30,12 +30,13 @@ public class URLProcessor extends AbstractProcessor {
 				responseVo.setResponseType(ResponseType.URL);
 				responseVo.setUrl(getRequestVo().getRequestContent());
 				responseVo.setResponseContent(getResponseContent(responseVo));
+				responseVo.setMultipart(true);
 				responseVo.setSubject(Constants.CONTENTS_OF + getRequestVo().getRequestContent());
 			}
 		} catch (ProcessingException e) {
 			LOG.error(e.getMessage(), e);
 			responseVo.setResponseType(ResponseType.ERROR);
-			responseVo.setStringResponseContent(Constants.UNABLE_TO_PROCESS);
+			responseVo.setMessage(Constants.UNABLE_TO_PROCESS);
 			responseVo.setSubject(Constants.ERROR_DURING_PROCESSING);
 		}
 

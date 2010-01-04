@@ -10,23 +10,6 @@ public class GoogleJsonVo {
 	private ResponseData responseData;
 	private String responseStatus;
 	
-	public static class ResponseData{
-		private List<GoogleResult> googleResults=new ArrayList<GoogleResult>();
-
-		public List<GoogleResult> getGoogleResults() {
-			return googleResults;
-		}
-
-		public void setGoogleResults(List<GoogleResult> googleResults) {
-			this.googleResults = googleResults;
-		}
-		@Override
-		public String toString() {
-			return ReflectionToStringBuilder.toString(this);
-		}
-		
-	}
-
 	public ResponseData getResponseData() {
 		return responseData;
 	}
@@ -41,6 +24,24 @@ public class GoogleJsonVo {
 
 	public void setResponseStatus(String responseStatus) {
 		this.responseStatus = responseStatus;
+	}
+	
+	public static class ResponseData{
+		private List<GoogleResult> results=new ArrayList<GoogleResult>();
+
+		@Override
+		public String toString() {
+			return ReflectionToStringBuilder.toString(this);
+		}
+
+		public List<GoogleResult> getResults() {
+			return results;
+		}
+
+		public void setResults(List<GoogleResult> results) {
+			this.results = results;
+		}
+		
 	}
 
 	@Override
